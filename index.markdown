@@ -1,6 +1,12 @@
 ---
-# Feel free to add content and custom Front Matter to this file.
-# To modify the layout, see https://jekyllrb.com/docs/themes/#overriding-theme-defaults
-
-layout: home
+layout: default
+title: Nick Berk
 ---
+
+# Nick Berk
+
+Connect with me:
+
+- [LinkedIn](https://www.linkedin.com/in/nick-berk) - Professional network & background
+- [Goodreads](http://goodreads.com/nickberk) - Books I'm reading
+- [Letterboxd](https://letterboxd.com/D_Jerk/) - Films I'm watching
