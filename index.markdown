@@ -5,8 +5,10 @@ title: Nick Berk
 
 # Nick Berk
 
-Connect with me:
+Socials:
 
-- [LinkedIn](https://www.linkedin.com/in/nick-berk) - Professional network & background
-- [Goodreads](http://goodreads.com/nickberk) - Books I'm reading
-- [Letterboxd](https://letterboxd.com/D_Jerk/) - Films I'm watching
+- [LinkedIn](https://www.linkedin.com/in/nick-berk)
+- [Goodreads](http://goodreads.com/nickberk)
+- [Letterboxd](https://letterboxd.com/D_Jerk/)
+
+R
