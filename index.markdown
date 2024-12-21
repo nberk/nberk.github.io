@@ -9,7 +9,7 @@ Socials:
 - [Goodreads](http://goodreads.com/nickberk)
 - [Letterboxd](https://letterboxd.com/D_Jerk/)
 
-Resource Lists (list of resources I recommend):
+Resource Lists (content I recommend):
 
 - [Investing](https://docs.google.com/document/d/1T-I5KI37eCpUlK2_wl6XYgE9kFUukHx8_FAM7WBUzIs/edit?usp=sharing)
 - [Future of Law](https://docs.google.com/document/d/1NfI1h6HAQiPVrDROKvvwk1slWwFaAbjP4BOO5LrTGFk/edit?usp=sharing)
