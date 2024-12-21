@@ -18,6 +18,7 @@ Resource Lists (list of resources I recommend):
 
 - [Investing](https://docs.google.com/document/d/1T-I5KI37eCpUlK2_wl6XYgE9kFUukHx8_FAM7WBUzIs/edit?usp=sharing)
 - [Future of Law](https://docs.google.com/document/d/1NfI1h6HAQiPVrDROKvvwk1slWwFaAbjP4BOO5LrTGFk/edit?usp=sharing)
+- [Business/Entrepreneurship](https://docs.google.com/document/d/1rayLGISArAw2nvYi7VsJJm5IimbTnvmTnzw4cNlfmhU/edit?usp=sharing)
 
 Newsletters:
 - [Nick's Links](https://nickslinks.substack.com/)
