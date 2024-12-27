@@ -17,7 +17,7 @@ Resource Lists (content I recommend):
 
 Newsletters:
 - [Nick's Links](https://nickslinks.substack.com/)
-- [Spicy Takes - A Food Newsletter](http://spicytakes.substack.com)
+- [Spicy Takes - A (Lighthearted) Food Newsletter](http://spicytakes.substack.com)
 
 Other Writing:
 
