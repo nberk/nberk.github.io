@@ -6,7 +6,7 @@ tags: ["AI", "law", "legaltech"]
 
 The legal industry is paying close attention to how quickly AI is getting better at completing legal work. Benchmarks track complex situations in which the models are given documents and facts and asked to produce legal work product.
 
-Far less attention is paid to an equally important step: getting the facts in the first place.
+The industry is paying far less attention to an equally important step: getting the facts in the first place.
 
 Firms often spend as much effort gathering information as analyzing it. Whether you’re preparing a will, drafting a brief, or negotiating a contract, you need information from outside sources.
 
