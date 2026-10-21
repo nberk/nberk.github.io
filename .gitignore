@@ -4,3 +4,7 @@ resources/
 
 .DS_Store
 .DS_Store?
+
+# Local-only files
+graft/
+.claude/settings.local.json

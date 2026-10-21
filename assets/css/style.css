@@ -1,14 +1,45 @@
-/* --- Reset & Base --- */
-:root {
-  --brand: #6b7280;
-  --gray-light: #f3f4f6;
-  --gray-dark: #374151;
-  --bg: #fff;
-  --text: #111827;
-  --link-underline: #d1d5db;
-  --font: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+/* =============================================================
+   The Reading Room — nick-berk.com
+   A well-read person's homepage: warm paper, a book serif,
+   writing given pride of place, reading-lamp green for links.
+   See docs/reading-room-redesign.md
+   ============================================================= */
+
+/* --- Self-hosted Newsreader (variable, latin subset) --- */
+@font-face {
+  font-family: "Newsreader";
+  font-style: normal;
+  font-weight: 200 800;
+  font-display: swap;
+  src: url("/fonts/newsreader.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Newsreader";
+  font-style: italic;
+  font-weight: 200 800;
+  font-display: swap;
+  src: url("/fonts/newsreader-italic.woff2") format("woff2");
 }
 
+/* --- Design tokens --- */
+/* Light-only, always. color-scheme: light keeps browser UI (form controls,
+   scrollbars) light even when the visitor's OS is set to dark. */
+:root {
+  color-scheme: light;
+
+  --paper: #fcfcfb;      /* page — near-white (a hair off pure white) */
+  --paper-2: #f1f0ec;    /* raised panels: code, table head, tags */
+  --ink: #262521;        /* body text */
+  --muted: #6c6960;      /* dates, descriptions, secondary */
+  --green: #3c5a45;      /* links, section labels — the reading lamp */
+  --green-deep: #2f4838; /* link hover */
+  --rule: #e7e5e0;       /* hairlines */
+  --rule-strong: #d7d4cc;
+
+  --serif: "Newsreader", "Hoefler Text", "Iowan Old Style", "Palatino Linotype", Georgia, serif;
+}
+
+/* --- Reset --- */
 *,
 *::before,
 *::after {
@@ -17,29 +48,40 @@
   padding: 0;
 }
 
+html { font-size: 100%; }
+
 body {
-  font-family: var(--font);
-  color: var(--text);
-  background: var(--bg);
-  font-size: 15px;
-  line-height: 1.6;
+  font-family: var(--serif);
+  color: var(--ink);
+  background: var(--paper);
+  font-size: 1.0625rem;   /* 17px */
+  line-height: 1.72;
+  font-weight: 400;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--green) 22%, transparent);
 }
 
 /* --- Typography --- */
 h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font);
-  font-weight: 600;
-  letter-spacing: -0.01em;
+  font-family: var(--serif);
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: -0.005em;
+  text-wrap: balance;
 }
 
-a {
-  color: inherit;
-}
+a { color: var(--green); }
+a:visited { color: var(--green); }
 
-a:visited {
-  color: inherit;
+:focus-visible {
+  outline: 2px solid var(--green);
+  outline-offset: 2px;
+  border-radius: 2px;
 }
 
 /* --- Layout --- */
@@ -49,99 +91,124 @@ a:visited {
   padding: 0 1.5rem;
 }
 
+/* Breathing room below the header for every page's content */
+main.wrapper {
+  padding-top: 3rem;
+  padding-bottom: 4rem;
+}
+
+/* Page-level titles (blog list, tag pages) — match the post title treatment */
+main.wrapper > h1 {
+  font-size: 2rem;
+  font-weight: 500;
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+  margin-bottom: 1.35rem;
+}
+
 /* --- Header --- */
 .site-header {
-  padding: 2rem 0 1.5rem;
-  border-bottom: 1px solid var(--gray-light);
+  padding: 2.25rem 0 1.5rem;
+  border-bottom: 1px solid var(--rule);
 }
 
 .site-header .wrapper {
   display: flex;
   align-items: baseline;
   justify-content: space-between;
+  gap: 1rem;
 }
 
 .site-title {
-  font-family: var(--font);
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   font-weight: 600;
   text-decoration: none;
-  color: var(--text);
+  color: var(--ink);
   letter-spacing: -0.01em;
 }
 
+.site-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+}
+
 .site-nav .page-link {
-  font-family: var(--font);
-  font-size: 0.875rem;
-  color: var(--brand);
+  font-size: 0.9rem;
+  color: var(--green);
   text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.15s ease, color 0.15s ease;
 }
 
 .site-nav .page-link:hover {
-  color: var(--text);
+  color: var(--green-deep);
+  border-bottom-color: color-mix(in srgb, var(--green) 45%, transparent);
 }
 
-.site-nav .page-link + .page-link {
-  margin-left: 1.5rem;
-}
-
-/* --- Homepage --- */
+/* --- Homepage: intro --- */
 .intro {
   display: flex;
   align-items: center;
-  gap: 1.25rem;
-  margin: 2.5rem 0;
+  gap: 1.4rem;
+  margin: 0 0 2.75rem;
 }
 
 .headshot {
-  width: 100px;
-  height: 100px;
+  width: 96px;
+  height: 96px;
   border-radius: 50%;
   object-fit: cover;
   flex-shrink: 0;
+  box-shadow: 0 0 0 1px var(--rule-strong), 0 10px 28px -16px rgba(24, 24, 22, 0.4);
 }
 
 .intro-text p {
-  font-size: 0.95rem;
-  color: var(--gray-dark);
-  margin-bottom: 0.5rem;
+  font-size: 1.05rem;
+  font-style: italic;
+  color: var(--muted);
+  margin-bottom: 0.55rem;
 }
 
 .socials {
   display: flex;
-  gap: 0.35rem;
+  gap: 0.5rem;
   align-items: center;
-  font-size: 0.85rem;
+  font-size: 0.9rem;
+  font-style: normal;
 }
 
 .socials a {
-  color: var(--brand);
+  color: var(--green);
   text-decoration: none;
-  transition: color 0.15s ease;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.15s ease, color 0.15s ease;
 }
 
 .socials a:hover {
-  color: var(--text);
+  color: var(--green-deep);
+  border-bottom-color: color-mix(in srgb, var(--green) 45%, transparent);
 }
 
 .social-sep {
-  color: var(--link-underline);
+  color: var(--rule-strong);
 }
 
-/* --- Homepage sections --- */
+/* --- Homepage: sections --- */
 .homepage-section {
-  margin-bottom: 2.5rem;
-  padding-top: 1.5rem;
-  border-top: 1px solid var(--gray-light);
+  margin-bottom: 2.75rem;
+  padding-top: 1.75rem;
+  border-top: 1px solid var(--rule);
 }
 
 .homepage-section h2 {
-  font-size: 0.8rem;
+  font-size: 0.78rem;
   font-weight: 600;
+  font-family: var(--serif);
   text-transform: uppercase;
-  letter-spacing: 0.06em;
-  color: var(--brand);
-  margin-bottom: 1rem;
+  letter-spacing: 0.13em;
+  color: var(--green);
+  margin-bottom: 1.15rem;
 }
 
 .homepage-section ul {
@@ -150,60 +217,74 @@ a:visited {
 }
 
 .homepage-section li {
-  margin-bottom: 0.5rem;
-  font-size: 0.935rem;
-  line-height: 1.5;
+  margin-bottom: 0.6rem;
+  font-size: 1rem;
+  line-height: 1.55;
 }
 
+/* List links: ink text with a green reading-underline */
 .homepage-section li a {
-  text-decoration: underline;
-  text-decoration-color: var(--link-underline);
-  text-underline-offset: 2px;
+  color: var(--ink);
+  text-decoration: none;
+  border-bottom: 1px solid color-mix(in srgb, var(--green) 40%, transparent);
+  transition: border-color 0.15s ease, color 0.15s ease;
 }
 
 .homepage-section li a:hover {
-  text-decoration-color: var(--text);
+  color: var(--green);
+  border-bottom-color: var(--green);
 }
 
 /* --- Writing group labels --- */
 .group-label {
-  font-size: 0.7rem;
-  font-weight: 500;
+  font-size: 0.72rem;
+  font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--brand);
-  margin-top: 1rem;
-  margin-bottom: 0.35rem;
+  letter-spacing: 0.11em;
+  color: var(--green);
+  margin-top: 1.25rem;
+  margin-bottom: 0.4rem;
 }
 
 /* --- Project list --- */
 .project-list .project-desc {
   display: block;
-  color: var(--brand);
-  font-size: 0.85rem;
-  margin-top: 0.1rem;
-  line-height: 1.4;
+  color: var(--muted);
+  font-style: italic;
+  font-size: 0.92rem;
+  margin-top: 0.15rem;
+  line-height: 1.5;
 }
 
 /* --- Blog list --- */
 .blog-tags {
-  margin-bottom: 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin-bottom: 2.5rem;
+}
+
+.blog-tags .tag-badge {
+  margin: 0;
 }
 
 .tag-badge {
   display: inline-block;
-  padding: 0.15em 0.6em;
+  padding: 0.18em 0.7em;
   margin: 0.2em 0.3em 0.2em 0;
   font-size: 0.75em;
-  font-weight: 500;
-  background: var(--gray-light);
-  color: var(--gray-dark);
+  font-style: normal;
+  background: var(--paper-2);
+  color: var(--muted);
+  border: 1px solid var(--rule);
   border-radius: 1em;
   text-decoration: none;
+  transition: color 0.15s ease, border-color 0.15s ease;
 }
 
 .tag-badge:hover {
-  background: var(--link-underline);
+  color: var(--green);
+  border-color: color-mix(in srgb, var(--green) 45%, transparent);
 }
 
 .post-list {
@@ -211,58 +292,96 @@ a:visited {
   padding-left: 0;
 }
 
-.post-list li {
-  margin-bottom: 0.75em;
+/* Each post: a serif title over a quiet meta line (date · tags) */
+.post-list .post-item {
+  margin-bottom: 1.6rem;
 }
 
-.post-list .post-date {
-  display: inline-block;
-  color: var(--brand);
-  font-size: 0.85em;
-  margin-right: 0.5em;
+.post-item-title {
+  font-size: 1.15rem;
+  color: var(--ink);
+  text-decoration: none;
+  border-bottom: 1px solid color-mix(in srgb, var(--green) 38%, transparent);
+  transition: border-color 0.15s ease, color 0.15s ease;
 }
 
-.post-list .tag-badge {
-  padding: 0.1em 0.5em;
-  margin-left: 0.3em;
-  font-size: 0.7em;
+.post-item-title:hover {
+  color: var(--green);
+  border-bottom-color: var(--green);
+}
+
+.post-item-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+
+.post-item-meta .post-date {
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.post-item-meta .tag-badge {
+  margin: 0;
+  font-size: 0.72rem;
+  padding: 0.14em 0.6em;
 }
 
 /* --- Post --- */
 .post-header {
-  margin-bottom: 2rem;
+  margin-bottom: 2.25rem;
 }
 
 .post-header h1 {
-  font-size: 1.75rem;
-  margin-bottom: 0.25rem;
-  letter-spacing: -0.02em;
+  font-size: 2rem;
+  font-weight: 500;
+  line-height: 1.15;
+  margin-bottom: 0.4rem;
+  letter-spacing: -0.015em;
 }
 
 .post-meta {
-  color: var(--brand);
-  font-size: 0.85rem;
+  color: var(--muted);
+  font-size: 0.9rem;
+  font-style: italic;
+}
+
+.post-meta time {
+  font-variant-numeric: tabular-nums;
+  font-style: normal;
 }
 
 .post-content {
-  line-height: 1.75;
-  font-size: 0.95rem;
+  line-height: 1.78;
+  font-size: 1.075rem;
 }
 
 .post-content p {
-  margin-bottom: 1.25em;
+  margin-bottom: 1.3em;
 }
 
 .post-content h2,
 .post-content h3 {
   margin-top: 2em;
   margin-bottom: 0.5em;
+  font-weight: 600;
 }
+
+.post-content h2 { font-size: 1.4rem; }
+.post-content h3 { font-size: 1.15rem; }
 
 .post-content ul,
 .post-content ol {
-  padding-left: 1.5em;
-  margin-bottom: 1.25em;
+  padding-left: 1.4em;
+  margin-bottom: 1.3em;
+}
+
+.post-content li {
+  margin-bottom: 0.5em;
 }
 
 .post-content li > p {
@@ -273,92 +392,93 @@ a:visited {
   margin-bottom: 0;
 }
 
-.post-content li {
-  margin-bottom: 0.4em;
-}
-
 .post-content a {
-  text-decoration: underline;
-  text-decoration-color: var(--link-underline);
-  text-underline-offset: 2px;
+  color: var(--green);
+  text-decoration: none;
+  border-bottom: 1px solid color-mix(in srgb, var(--green) 45%, transparent);
+  transition: border-color 0.15s ease, color 0.15s ease;
 }
 
 .post-content a:hover {
-  text-decoration-color: var(--text);
+  color: var(--green-deep);
+  border-bottom-color: var(--green);
 }
 
 .post-content img {
   max-width: 100%;
   height: auto;
-  margin: 1.5em 0;
+  margin: 1.75em 0;
   border-radius: 6px;
 }
 
 .post-content blockquote {
-  border-left: 2px solid var(--link-underline);
-  padding-left: 1rem;
-  color: var(--brand);
-  margin: 1.5em 0;
+  border-left: 2px solid color-mix(in srgb, var(--green) 55%, transparent);
+  padding-left: 1.15rem;
+  color: var(--muted);
+  font-style: italic;
+  margin: 1.6em 0;
 }
 
 .post-content code {
-  background: var(--gray-light);
-  padding: 0.15em 0.35em;
+  background: var(--paper-2);
+  padding: 0.12em 0.38em;
   border-radius: 3px;
-  font-size: 0.88em;
+  font-size: 0.86em;
+  font-family: ui-monospace, "SF Mono", Menlo, Monaco, "Cascadia Mono", monospace;
 }
 
 .post-content pre {
-  background: var(--gray-light);
-  padding: 1rem;
+  background: var(--paper-2);
+  padding: 1rem 1.15rem;
   border-radius: 6px;
+  border: 1px solid var(--rule);
   overflow-x: auto;
-  margin: 1.5em 0;
+  margin: 1.6em 0;
+  line-height: 1.55;
 }
 
 .post-content pre code {
   background: none;
   padding: 0;
+  font-size: 0.86em;
 }
 
 /* --- Tables --- */
 .post-content .table-wrap {
   overflow-x: auto;
-  margin: 1.5em 0;
+  margin: 1.75em 0;
   -webkit-overflow-scrolling: touch;
-  /* Scroll-shadow affordance: shadows appear on edges only when overflowing.
-     The two "cover" gradients are anchored to scrolling content (background-attachment: local)
-     and hide the shadow when scrolled to that edge; the two "shadow" radials stay fixed. */
+  /* Edge-fade affordance: paper-colored covers anchored to the scrolling
+     content (background-attachment: local) fade in only while there is more
+     table to scroll toward. Theme-safe because both covers use --paper. */
   background:
-    linear-gradient(to right, var(--bg) 30%, rgba(255, 255, 255, 0)) left center,
-    linear-gradient(to right, rgba(255, 255, 255, 0), var(--bg) 70%) right center,
-    radial-gradient(farthest-side at 0 50%, rgba(0, 0, 0, 0.12), rgba(0, 0, 0, 0)) left center,
-    radial-gradient(farthest-side at 100% 50%, rgba(0, 0, 0, 0.12), rgba(0, 0, 0, 0)) right center;
+    linear-gradient(to right, var(--paper) 30%, rgba(255, 255, 255, 0)) left center,
+    linear-gradient(to right, rgba(255, 255, 255, 0), var(--paper) 70%) right center;
   background-repeat: no-repeat;
-  background-color: var(--bg);
-  background-size: 40px 100%, 40px 100%, 14px 100%, 14px 100%;
-  background-attachment: local, local, scroll, scroll;
+  background-color: var(--paper);
+  background-size: 44px 100%, 44px 100%;
+  background-attachment: local, local;
 }
 
 .post-content table {
   border-collapse: collapse;
   width: 100%;
-  font-size: 0.88em;
+  font-size: 0.9em;
   line-height: 1.5;
 }
 
 .post-content th,
 .post-content td {
-  padding: 0.5em 0.75em;
-  border-bottom: 1px solid var(--gray-light);
+  padding: 0.55em 0.8em;
+  border-bottom: 1px solid var(--rule);
   vertical-align: top;
 }
 
 .post-content th {
-  background: var(--gray-light);
+  background: var(--paper-2);
   font-weight: 600;
   text-align: left;
-  border-bottom: 2px solid var(--link-underline);
+  border-bottom: 2px solid var(--rule-strong);
 }
 
 .post-content tbody tr:last-child td {
@@ -367,12 +487,12 @@ a:visited {
 
 /* --- Lessons page --- */
 .lessons-content h2 {
-  font-size: 1.15rem;
-  padding-bottom: 0.3em;
-  border-bottom: 1px solid var(--gray-light);
-  text-transform: none;
+  font-size: 1.3rem;
+  font-weight: 600;
+  padding-bottom: 0.35em;
+  border-bottom: 1px solid var(--rule);
   letter-spacing: -0.01em;
-  color: var(--text);
+  color: var(--ink);
 }
 
 .lessons-content > ul {
@@ -392,31 +512,31 @@ a:visited {
 .lessons-content ul ul {
   list-style: none;
   padding-left: 1.5rem;
-  margin-top: 0.3em;
+  margin-top: 0.35em;
   margin-bottom: 0;
 }
 
 .lessons-content ul ul li {
-  color: var(--gray-dark);
-  font-size: 0.9em;
-  line-height: 1.55;
-  margin-bottom: 0.25em;
+  color: var(--muted);
+  font-size: 0.92em;
+  line-height: 1.6;
+  margin-bottom: 0.3em;
   position: relative;
-  padding-left: 0.9rem;
+  padding-left: 0.95rem;
 }
 
 .lessons-content ul ul li::before {
   content: "\2013";
   position: absolute;
   left: 0;
-  color: var(--link-underline);
+  color: var(--rule-strong);
 }
 
 .lessons-content ul ul ul {
   padding-left: 1.25rem;
 }
 
-/* Books list */
+/* Books list — two columns */
 .lessons-content h2:last-of-type ~ ul {
   columns: 2;
   column-gap: 2rem;
@@ -425,29 +545,47 @@ a:visited {
 .lessons-content h2:last-of-type ~ ul li {
   break-inside: avoid;
   margin-bottom: 0.5em;
-  font-size: 0.88em;
+  font-size: 0.9em;
 }
 
 /* --- Responsive --- */
 @media (max-width: 600px) {
   .wrapper {
-    padding: 0 1rem;
+    padding: 0 1.15rem;
+  }
+
+  body { font-size: 1.03rem; }
+
+  .site-header .wrapper {
+    flex-direction: column;
+    gap: 0.75rem;
   }
 
   .post-header h1 {
-    font-size: 1.4rem;
+    font-size: 1.6rem;
   }
+
+  .post-content { font-size: 1.03rem; }
 
   .lessons-content h2:last-of-type ~ ul {
     columns: 1;
   }
 
   .intro {
-    gap: 1rem;
+    gap: 1.1rem;
+    margin: 2rem 0;
   }
 
   .headshot {
-    width: 80px;
-    height: 80px;
+    width: 78px;
+    height: 78px;
+  }
+}
+
+/* --- Motion --- */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+    animation: none !important;
   }
 }

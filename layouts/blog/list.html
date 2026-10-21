@@ -9,12 +9,14 @@
 
 <ul class="post-list">
   {{ range .Pages.ByDate.Reverse }}
-    <li>
-      <span class="post-date">{{ .Date.Format "January 2, 2006" }}</span>
-      <a href="{{ .RelPermalink }}">{{ .Title }}</a>
-      {{ range .Params.tags }}
-        <span class="tag-badge">{{ . }}</span>
-      {{ end }}
+    <li class="post-item">
+      <a class="post-item-title" href="{{ .RelPermalink }}">{{ .Title }}</a>
+      <div class="post-item-meta">
+        <span class="post-date">{{ .Date.Format "January 2, 2006" }}</span>
+        {{ range .Params.tags }}
+          <span class="tag-badge">{{ . }}</span>
+        {{ end }}
+      </div>
     </li>
   {{ end }}
 </ul>

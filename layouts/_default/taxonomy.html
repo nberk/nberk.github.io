@@ -1,8 +1,27 @@
 {{ define "main" }}
 <h1>{{ .Title }}</h1>
-<ul>
-  {{ range .Pages }}
-    <li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>
-  {{ end }}
-</ul>
+
+{{ if eq .Kind "term" }}
+  {{/* A single tag: list its posts, matching the blog list */}}
+  <ul class="post-list">
+    {{ range .Pages.ByDate.Reverse }}
+      <li class="post-item">
+        <a class="post-item-title" href="{{ .RelPermalink }}">{{ .Title }}</a>
+        <div class="post-item-meta">
+          <span class="post-date">{{ .Date.Format "January 2, 2006" }}</span>
+          {{ range .Params.tags }}
+            <span class="tag-badge">{{ . }}</span>
+          {{ end }}
+        </div>
+      </li>
+    {{ end }}
+  </ul>
+{{ else }}
+  {{/* The tags index: a cloud of tag chips */}}
+  <div class="blog-tags">
+    {{ range .Pages }}
+      <a class="tag-badge" href="{{ .RelPermalink }}">{{ .Title }}</a>
+    {{ end }}
+  </div>
+{{ end }}
 {{ end }}
